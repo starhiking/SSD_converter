@@ -17,7 +17,9 @@ If you need convert other model files, you need do the following steps.
 
 1. Install [PyCaffe](https://blog.csdn.net/weixin_44138807/article/details/100666613) with Anaconda 
 2. Install [Tensorflow](https://www.jianshu.com/p/b6f73bc80d4d) 1.14 version with Pypi
-3. Install [MMdnn](https://github.com/microsoft/MMdnn) newest version with Pypi  ```pip install -U git+https://github.com/Microsoft/MMdnn.git@master```
+3. Install [MMdnn](https://github.com/microsoft/MMdnn) newest version with Pypi  
+
+```pip install -U git+https://github.com/Microsoft/MMdnn.git@master```
 
 Note : MMdnn must use 0.30 version and Tensorflow use 1.14 version
 
@@ -44,7 +46,7 @@ Note: the indexs in details will resort by dict. eg. add, add_1, add_10, add_11,
 ## Result
 
 We have used ```np.ones((300,300,3))*127``` as input for testing the last two conv layers (conv17_2_mbox_loc, conv17_2_mbox_conf).
-The scripts of caffe, tflite and tensorflow are in the folder, and the results are in ```result.log```
+The scripts of caffe, tflite and tensorflow are in the folder, and the results are in [result.log](result.log)
 
 
 Remember the post processing need to be done in your codes.
