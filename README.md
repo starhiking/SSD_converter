@@ -1,4 +1,4 @@
-# SSD Conversation
+# Convert SSD model from caffe to Tensoflow and TfLite
 
 This programe is convert the caffe model to tensorflow, which contains mobilenet and ssd.
 
