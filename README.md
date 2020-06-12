@@ -19,7 +19,7 @@ If you need convert other model files, you need do the following steps.
 2. Install [Tensorflow](https://www.jianshu.com/p/b6f73bc80d4d) 1.14 version with Pypi
 3. Install [MMdnn](https://github.com/microsoft/MMdnn) newest version with Pypi  
 
-```pip install -U git+https://github.com/Microsoft/MMdnn.git@master```
+```pip install -U git+https://gitee.com/starhiking/MMdnn.git@master -i https://pypi.tuna.tsinghua.edu.cn/simple```
 
 Note : MMdnn must use 0.30 version and Tensorflow use 1.14 version
 
@@ -56,6 +56,28 @@ Remember the post processing need to be done in your codes.
 Tensorflow will product different names with caffe.
 ```saved_model_cli show --dir ssd.pb --all``` can get the names of input and ouputs.
 Also tensorflow-cpu may have no SERVING tag, you can modify it to TRINING.
+
+## Senior Usage
+
+Using mmconvert will generate the middle files, which contain network file(py) and weight file(npy).
+
+For example in ```Senior_example/``` , We can modify the KitModel in *.py to add some post processing in the network.
+
+And ```convert_mvssd.py``` needs do same adjustment as KitModel outputs. (the same number of outputs)
+
+The command line need to modify as in [ImageNet_example](Images/screenshot.png), such as:
+        
+        python  Senior_example/convert_mvssd.py -n Senior_example/mv_ssd.py -w Senior_example/mv_ssd.npy --dump test --dump_tag SERVING
+
+
+## Folder Structure
+
+```input.npy```: input file for the network.
+```mv_ssd.npy```: network middle variable.
+```mv_ssd.py```: network file for python.
+```load_xxx.py```: xxx framework computate the results.
+```test,ssd.pb```: folder for save tensorflow model file.
+```ssd.tflite,ssd_2_branch.tflite```: tflite for backbone and overall network.
 
 ## License
 
