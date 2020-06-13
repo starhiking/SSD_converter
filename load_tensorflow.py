@@ -6,7 +6,7 @@ import tensorflow as tf
 from tensorflow.python.platform import gfile
 
 with tf.Session(graph=tf.Graph()) as sess:
-    tf.saved_model.loader.load(sess, [tf.saved_model.tag_constants.TRAINING], './depthwise')
+    tf.saved_model.loader.load(sess, [tf.saved_model.tag_constants.TRAINING], './ssd_1.0_tf')
     sess.run(tf.global_variables_initializer())
 
     # transform_img = (np.ones((300,300,3))*127).astype(np.float32).reshape(1,300,300,3)
