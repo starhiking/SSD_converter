@@ -3,7 +3,7 @@ import tensorflow as tf
 import cv2
 
 # Load TFLite model and allocate tensors.
-interpreter = tf.lite.Interpreter(model_path="ssd_2_branch.tflite")
+interpreter = tf.lite.Interpreter(model_path="depthwise.tflite")
 interpreter.allocate_tensors()
 
 input_details = interpreter.get_input_details()
