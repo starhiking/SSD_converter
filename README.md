@@ -63,11 +63,36 @@ Using mmconvert will generate the middle files, which contain network file(py) a
 
 For example in ```Senior_example/``` , We can modify the KitModel in *.py to add some post processing in the network.
 
-And ```convert_mvssd.py``` needs do same adjustment as KitModel outputs. (the same number of outputs)
+And ```convert_mvssd.py``` needs do same adjustment as KitModel outputs. (the same number of outputs). Last, it is required to modify the convoluntion function as reference in following:
 
+```
+def convolution(input, name, group, **kwargs):
+    w = tf.Variable(__weights_dict[name]['weights'], trainable=is_train, name=name + "_weight")
+    if group == 1:
+        layer = tf.nn.convolution(input, w, name=name, **kwargs)
+    
+    elif group == input.shape[-1].value:
+        if len(kwargs['strides'])==2:
+            kwargs['strides']=[1]+kwargs['strides']+[1]
+            layer=  tf.nn.depthwise_conv2d(input,tf.expand_dims(tf.squeeze(w),-1), name=name, **kwargs)
+
+    else:
+        weight_groups = tf.split(w, num_or_size_splits=group, axis=-1)
+        xs = tf.split(input, num_or_size_splits=group, axis=-1)
+        convolved = [tf.nn.convolution(x, weight, name=name, **kwargs) for
+                    (x, weight) in zip(xs, weight_groups)]
+        layer = tf.concat(convolved, axis=-1)
+
+
+    if 'bias' in __weights_dict[name]:
+        b = tf.Variable(__weights_dict[name]['bias'], trainable=is_train, name=name + "_bias")
+        layer = layer + b
+    return layer
+
+```
 The command line need to modify as in [ImageNet_example](Images/screenshot.png), such as:
         
-        python  Senior_example/convert_mvssd.py -n Senior_example/mv_ssd.py -w Senior_example/mv_ssd.npy --dump test --dump_tag SERVING
+        python  Senior_example/convert_mvssd.py -n Senior_example/mv_ssd.py -w Senior_example/mv_ssd.npy --dump test --dump_tag TRAINING
 
 
 ## Folder Structure

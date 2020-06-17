@@ -3,14 +3,16 @@ import tensorflow as tf
 import cv2
 
 # Load TFLite model and allocate tensors.
-interpreter = tf.lite.Interpreter(model_path="ssd_1.0_tflite/ssd_1.0.tflite")
+interpreter = tf.lite.Interpreter(model_path="mv2_0.5_ssd.tflite")
 interpreter.allocate_tensors()
 
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
 # input_data = (np.ones((300,300,3))*127).astype(np.float32).reshape(1,300,300,3)
-input_data = np.load('input.npy').reshape(1,300,300,3)
+# input_data = np.load('input.npy').reshape(1,300,300,3)
+input_data = np.load('input_288.npy').reshape(1,288,288,3)
+
 
 index = input_details[0]['index']
 interpreter.set_tensor(index, input_data)
