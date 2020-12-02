@@ -103,7 +103,3 @@ The command line need to modify as in [ImageNet_example](Images/screenshot.png),
 ```load_xxx.py```: xxx framework computate the results.
 ```test,ssd.pb```: folder for save tensorflow model file.
 ```ssd.tflite,ssd_2_branch.tflite```: tflite for backbone and overall network.
-
-## License
-
-In the end, fuck every licenses.
